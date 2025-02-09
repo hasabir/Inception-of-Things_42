@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "base"
+  # config.vm.box = "base"
 
 
   config.vm.box = "debian/bookworm64"
@@ -23,14 +23,14 @@ Vagrant.configure("2") do |config|
 
   # config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
-  config.vagrant.plugins = {
-    'vagrant-vbguest' => {
-      'sources' =>[
-        'vagrant-vbguest-0.32.1.gem',
-        'https://rubygems.org/', # needed but not used
-      ],
-    }
-  }
+  # config.vagrant.plugins = {
+  #   'vagrant-vbguest' => {
+  #     'sources' =>[
+  #       'vagrant-vbguest-0.32.1.gem',
+  #       'https://rubygems.org/', # needed but not used
+  #     ],
+  #   }
+  # }
 
   config.vm.hostname = "debianS"
   config.vm.provider "virtualbox" do |vb|
