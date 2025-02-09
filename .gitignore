@@ -1,0 +1,4 @@
+# Vagrant specific files
+.vagrant/
+p1/.vagrant/
+
