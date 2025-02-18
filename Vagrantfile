@@ -6,42 +6,24 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  # config.vm.box = "base"
+    config.vm.box = "generic/alpine318"
+  config.vm.box_version = "4.3.12"
 
 
-  config.vm.box = "debian/bookworm64"
-  config.vm.box_version = "12.20250126.1"
- 
-  # config.vm.provision :shell, path: "script.sh"
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 
-  # config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
-  # config.vagrant.plugins = {
-  #   'vagrant-vbguest' => {
-  #     'sources' =>[
-  #       'vagrant-vbguest-0.32.1.gem',
-  #       'https://rubygems.org/', # needed but not used
-  #     ],
-  #   }
-  # }
-
-  config.vm.hostname = "debianS"
+  config.vm.hostname = "test"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
     vb.cpus = 1
-    vb.name = "hasabir"
+    vb.name = "test"
   end
-  config.vm.provision "shell", inline: <<-SHELL
-  apt-get update
-    apt-get install -y apache2
-    SHELL
+
+  # config.vm.provision :shell, path: "script.sh"
+  config.vm.network "private_network", ip: "192.168.56.110"
+  config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+  config.vm.synced_folder ".", "/vagrant"
 end
 
     
