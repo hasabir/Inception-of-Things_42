@@ -4,20 +4,14 @@ apk update
 apk add curl iptables openrc
 
 if [ "$1" = "server" ]; then
-#   curl -sfL https://get.k3s.io/ | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--flannel-iface eth1" sh -
-  curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--flannel-iface eth1 --disable traefik --tls-san 192.168.56.110 --node-ip 192.168.56.110" sh -
+  curl -sfL https://get.k3s.io/ | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--flannel-iface eth1" sh -
   
   until [ -f /etc/rancher/k3s/k3s.yaml ]; do
     echo "Waiting for k3s to start..."
     sleep 5
   done
 
-
-
-
   chmod 644 /etc/rancher/k3s/k3s.yaml
-
-
 
   NODE_TOKEN="/var/lib/rancher/k3s/server/node-token"
   cat ${NODE_TOKEN} > /vagrant/node-token
@@ -25,16 +19,10 @@ if [ "$1" = "server" ]; then
 
 
 
-
-
-
-
-
-
-# elif [ "$1" = "agent" ]; then
-#   SERVER_IP="192.168.56.110"
-#   TOKEN=$(ssh -o StrictHostKeyChecking=no root@$SERVER_IP "cat /var/lib/rancher/k3s/server/node-token")
-#   curl -sfL https://get.k3s.io/ | K3S_URL="https://$SERVER_IP:6443" K3S_TOKEN="$TOKEN" sh -s - agent --node-name hasabirSW --flannel-iface eth1
+elif [ "$1" = "agent" ]; then
+  SERVER_IP="192.168.56.110"
+  TOKEN=$(cat /vagrant/node-token)
+  curl -sfL https://get.k3s.io/ | K3S_URL="https://$SERVER_IP:6443" K3S_TOKEN="$TOKEN" sh -s - agent --node-name hasabirSW --flannel-iface eth1
 fi
 
 
