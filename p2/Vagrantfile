@@ -1,26 +1,18 @@
 Vagrant.configure("2") do |config|
-  server = {
-    name: "hasabir",
-    ip: "192.168.56.110",
-    hostname: "hasabirS",
-    box: "generic/alpine318",
-    box_version: "4.3.12",
-    type: "server"
-  }
 
-  config.vm.define server[:name] do |node|
-    node.vm.box = server[:box]
-    node.vm.box_version = server[:box_version]
-    node.vm.hostname = server[:hostname]
-    node.vm.network "private_network", ip: server[:ip]
-    node.vm.synced_folder "./config", "/vagrant"
+  config.vm.define "hasabirS" do |node|
+    node.vm.box = "generic/alpine318"
+    node.vm.box_version = "4.3.12"
+    node.vm.hostname = "hasabirS"
+    node.vm.network "private_network", ip: "192.168.56.110"
+    node.vm.synced_folder "./apps", "/vagrant"
 
     node.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = 2
-      vb.name = server[:name]
+      vb.name = "hasabirS"
     end
 
-    node.vm.provision "shell", path: "script.sh", args: [server[:type]]
+    node.vm.provision "shell", path: "script.sh"
   end
 end

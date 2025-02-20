@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 apk update
 apk add curl iptables openrc git
@@ -11,3 +11,17 @@ until [ -f /etc/rancher/k3s/k3s.yaml ]; do
 	sleep 5
 done
 chmod 644 /etc/rancher/k3s/k3s.yaml
+
+
+# kubectl create namespace ingress-nginx
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+# until kubectl get pods -n ingress-nginx | grep -m1 'Running'; do
+#     echo "Waiting for ingress-nginx to start..."
+#     sleep 5
+# done
+
+echo "192.168.56.110 app-one.com" | tee -a /etc/hosts
+
+echo "Setup complete!"
+
